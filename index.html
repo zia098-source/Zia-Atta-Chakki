@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="ur" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#176b43"><meta name="description" content="ضیاء آٹا چکی روزانہ حساب کتاب">
+<link rel="manifest" href="manifest.webmanifest">
+<title>ضیاء آٹا چکی</title>
+<style>
+:root{--g:#176b43;--dg:#123d2b;--bg:#f3f7f3;--card:#fff;--line:#dce8df;--muted:#627268;--gold:#fff2c8;--red:#a33a32}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:"Noto Nastaliq Urdu","Noto Naskh Arabic",Tahoma,Arial,sans-serif;color:#183b2b}
+header{background:linear-gradient(135deg,#176b43,#0d4c30);color:white;padding:24px 18px 20px;border-radius:0 0 24px 24px;box-shadow:0 5px 18px #174d3020}
+h1{margin:0;font-size:27px}header p{margin:5px 0 0;color:#d8eee0}
+main{max-width:760px;margin:auto;padding:16px}.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:12px 0}
+.stat,.panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;box-shadow:0 3px 12px #153c2910}
+.stat small{color:var(--muted)}.stat strong{display:block;font-size:21px;color:var(--g);margin-top:4px}
+.tabs{display:flex;gap:7px;overflow:auto;margin:15px 0}.tab{border:1px solid var(--line);background:white;color:var(--g);padding:10px 14px;border-radius:12px;white-space:nowrap;font:inherit}.tab.active{background:var(--g);color:white}
+h2{font-size:20px;margin:4px 0 14px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+label{display:block;font-size:14px;color:var(--muted);margin:0 0 5px}input,textarea{width:100%;border:1px solid #cad9ce;border-radius:10px;padding:12px;background:#fff;font:inherit;font-size:16px;color:#183b2b}
+input:focus,textarea:focus{outline:2px solid #9ac6a8;border-color:var(--g)}.field{margin-bottom:12px}.full{grid-column:1/-1}
+button,.btn{border:0;border-radius:11px;padding:12px 16px;background:var(--g);color:white;font:inherit;font-weight:bold;cursor:pointer}.secondary{background:#e8f1ea;color:var(--g);border:1px solid var(--line)}.danger{background:#fff0ed;color:var(--red);border:1px solid #f0c8c1}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.notice{background:var(--gold);border:1px solid #ead78c;padding:12px;border-radius:12px;margin:12px 0;color:#624d12}
+table{width:100%;border-collapse:collapse;background:white;border-radius:12px;overflow:hidden}td,th{padding:10px;border-bottom:1px solid var(--line);text-align:right}th{background:var(--g);color:white}tr:last-child td{border:0}.muted{color:var(--muted)}.hidden{display:none!important}.entry{border:1px solid var(--line);padding:12px;border-radius:12px;margin:9px 0;background:white}.entry strong{color:var(--g)}.empty{text-align:center;color:var(--muted);padding:25px}
+footer{text-align:center;color:var(--muted);padding:25px;font-size:13px}
+@media(max-width:430px){.grid{grid-template-columns:1fr 1fr}.stats{gap:8px}.stat{padding:11px}.stat strong{font-size:18px}}
+@media print{header,.tabs,.no-print,footer{display:none!important}body{background:white}main{max-width:none;padding:0}.panel,.stat{box-shadow:none;break-inside:avoid}.print-only{display:block!important}}
+</style></head>
+<body>
+<header><h1>ضیاء آٹا چکی</h1><p>روزانہ حساب کتاب اور کاروباری رپورٹ</p></header>
+<main>
+<div class="stats">
+ <div class="stat"><small>آج کی پسائی</small><strong id="sWheat">0 کلو</strong></div>
+ <div class="stat"><small>آج کی آمدنی</small><strong id="sIncome">0 روپے</strong></div>
+ <div class="stat"><small>آج کے اخراجات</small><strong id="sExpense">0 روپے</strong></div>
+ <div class="stat"><small>آج کی باقی رقم</small><strong id="sNet">0 روپے</strong></div>
+</div>
+<nav class="tabs no-print">
+<button class="tab active" data-tab="form">نئی رپورٹ</button><button class="tab" data-tab="records">ریکارڈ</button><button class="tab" data-tab="summary">ماہانہ خلاصہ</button>
+</nav>
+<section id="form" class="panel">
+<h2>روزانہ رپورٹ درج کریں</h2>
+<form id="entryForm">
+<div class="grid">
+<div class="field"><label>تاریخ</label><input id="date" type="date" required></div>
+<div class="field"><label>گندم پسائی (کلو)</label><input id="wheat" type="number" min="0" step="0.01" placeholder="مثلاً 150" required></div>
+<div class="field"><label>آٹا تیار (کلو)</label><input id="flour" type="number" min="0" step="0.01" placeholder="مثلاً 50"></div>
+<div class="field"><label>فی کلو پسائی ریٹ (روپے)</label><input id="rate" type="number" min="0" step="0.01" placeholder="مثلاً 10"></div>
+<div class="field"><label>کل آمدنی (روپے)</label><input id="income" type="number" min="0" step="0.01" placeholder="مثلاً 500" required></div>
+<div class="field"><label>کل اخراجات (روپے)</label><input id="expense" type="number" min="0" step="0.01" value="0" required></div>
+<div class="field full"><label>اضافی تفصیلات</label><textarea id="notes" rows="2" placeholder="بجلی، مزدوری، مرمت وغیرہ"></textarea></div>
+</div>
+<div id="calc" class="notice">پسائی کے حساب سے متوقع رقم: 0 روپے</div>
+<div class="actions no-print"><button type="submit">رپورٹ محفوظ کریں</button><button type="button" class="secondary" id="reset">نیا اندراج</button></div>
+</form></section>
+<section id="records" class="panel hidden"><h2>محفوظ شدہ رپورٹس</h2><div class="actions no-print"><button class="secondary" id="exportCsv">CSV ایکسپورٹ</button></div><div id="recordList"></div></section>
+<section id="summary" class="panel hidden"><h2>ماہانہ خلاصہ</h2><div class="field no-print"><label>مہینہ منتخب کریں</label><input type="month" id="month"></div><div id="monthSummary"></div></section>
+<footer>آپ کا ڈیٹا اسی موبائل کے براؤزر میں محفوظ رہتا ہے۔ وقتاً فوقتاً CSV بیک اپ بنائیں۔</footer>
+</main>
+<script>
+const $=id=>document.getElementById(id), KEY='ziaAttaChaki.records.v1';
+let records=JSON.parse(localStorage.getItem(KEY)||'[]');
+const today=()=>new Date().toLocaleDateString('en-CA');
+$('date').value=today();$('month').value=today().slice(0,7);
+const num=id=>Number($(id).value||0), money=n=>Number(n||0).toLocaleString('en-PK',{maximumFractionDigits:2});
+function save(){localStorage.setItem(KEY,JSON.stringify(records));render()}
+function render(){
+ const t=today(), todays=records.filter(r=>r.date===t), sum=k=>todays.reduce((a,r)=>a+Number(r[k]||0),0);
+ $('sWheat').textContent=money(sum('wheat'))+' کلو';$('sIncome').textContent=money(sum('income'))+' روپے';$('sExpense').textContent=money(sum('expense'))+' روپے';$('sNet').textContent=money(sum('income')-sum('expense'))+' روپے';
+ $('recordList').innerHTML=records.length?records.slice().sort((a,b)=>b.date.localeCompare(a.date)).map(r=>`<article class="entry"><strong>${r.date}</strong><p>پسائی: ${money(r.wheat)} کلو | آٹا: ${money(r.flour)} کلو</p><p>آمدنی: ${money(r.income)} روپے | اخراجات: ${money(r.expense)} روپے | باقی: <b>${money(r.income-r.expense)} روپے</b></p>${r.notes?`<p class="muted">${escapeHtml(r.notes)}</p>`:''}<div class="actions no-print"><button class="secondary" onclick="printReport('${r.id}')">PDF / پرنٹ</button><button class="danger" onclick="delRecord('${r.id}')">حذف</button></div></article>`).join(''):'<div class="empty">ابھی کوئی رپورٹ محفوظ نہیں۔</div>';
+ monthRender();
+}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function calc(){let expected=num('wheat')*num('rate');$('calc').textContent='پسائی کے حساب سے متوقع رقم: '+money(expected)+' روپے';}
+['wheat','rate'].forEach(id=>$(id).addEventListener('input',calc));
+$('entryForm').addEventListener('submit',e=>{e.preventDefault();let r={id:crypto.randomUUID?crypto.randomUUID():String(Date.now()),date:$('date').value,wheat:num('wheat'),flour:num('flour'),rate:num('rate'),income:num('income'),expense:num('expense'),notes:$('notes').value.trim()};records=records.filter(x=>x.date!==r.date);records.push(r);save();$('entryForm').reset();$('date').value=today();$('expense').value=0;calc();alert('رپورٹ محفوظ ہوگئی۔')});
+$('reset').onclick=()=>{$('entryForm').reset();$('date').value=today();$('expense').value=0;calc()};
+document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x===b));['form','records','summary'].forEach(id=>$(id).classList.toggle('hidden',id!==b.dataset.tab));if(b.dataset.tab==='records')render()});
+window.delRecord=id=>{if(confirm('کیا یہ رپورٹ حذف کرنی ہے؟')){records=records.filter(r=>r.id!==id);save()}};
+function monthRender(){let m=$('month').value,rs=records.filter(r=>r.date.startsWith(m)),sum=k=>rs.reduce((a,r)=>a+Number(r[k]||0),0);$('monthSummary').innerHTML=`<table><tr><th>تفصیل</th><th>کل مقدار / رقم</th></tr><tr><td>رپورٹس کی تعداد</td><td>${rs.length}</td></tr><tr><td>گندم پسائی</td><td>${money(sum('wheat'))} کلو</td></tr><tr><td>آٹا تیار</td><td>${money(sum('flour'))} کلو</td></tr><tr><td>آمدنی</td><td>${money(sum('income'))} روپے</td></tr><tr><td>اخراجات</td><td>${money(sum('expense'))} روپے</td></tr><tr><td><b>باقی رقم</b></td><td><b>${money(sum('income')-sum('expense'))} روپے</b></td></tr></table>`}
+$('month').onchange=monthRender;
+function printReport(id){let r=records.find(x=>x.id===id);if(!r)return;if(window.Android&&Android.printReport){Android.printReport(JSON.stringify(r));}else{alert('پرنٹ کے لیے Android ایپ استعمال کریں۔')}}
+window.printReport=printReport;
+$('exportCsv').onclick=()=>{let rows=[['تاریخ','گندم پسائی کلو','آٹا تیار کلو','ریٹ','آمدنی','اخراجات','باقی رقم','تفصیلات'],...records.map(r=>[r.date,r.wheat,r.flour,r.rate,r.income,r.expense,r.income-r.expense,r.notes])];let csv='\\ufeff'+rows.map(row=>row.map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(',')).join('\\n');if(window.Android&&Android.saveCsv){Android.saveCsv(csv)}else{let a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));a.download='zia-atta-chaki-records.csv';a.click();URL.revokeObjectURL(a.href)}};
+
+render();calc();
+</script></body></html>
